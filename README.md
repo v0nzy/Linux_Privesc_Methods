@@ -1,1 +1,1 @@
-# basic_privesc_cheatsheet
+# Basic Windows & Linux Privesc Cheatsheet
