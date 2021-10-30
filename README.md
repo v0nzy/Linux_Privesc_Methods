@@ -1,6 +1,6 @@
 # Basic Windows & Linux Privesc Cheatsheet
 
-## Linux Privesc
+# Linux Privesc
 
 ## Kernel Exploits
 
@@ -16,4 +16,4 @@
 
 ## NFS
 
-## Windows Privesc
+# Windows Privesc
