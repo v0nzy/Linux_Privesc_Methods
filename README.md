@@ -1,4 +1,6 @@
-# Basic Windows & Linux Privesc Cheatsheet
+# Basic Windows & Linux Privesc Methods
+
+Thanks to TryHackMe for the great content. This repo is just to sum the methods up.
 
 # Linux Privesc
 
