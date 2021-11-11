@@ -1,8 +1,6 @@
-# Basic Windows & Linux Privesc Methods
+# Basic Linux Privesc
 
 Thanks to TryHackMe for the great content. This repo is just to sum the methods up.
-
-# Linux Privesc
 
 What is Privillege Esclation?
 
